@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+@SuppressWarnings("DataFlowIssue")
 public class MadeUpInventory implements Inventory {
     @Override
     public int getSize() {

@@ -27,20 +27,6 @@ public class PlaceholderManager {
         return legacySerializer.serialize(component);
     }
 
-    public static @NonNull List<String> SubstituteColorCodePlaceholders(@NonNull List<String> toReplace) {
-        toReplace.replaceAll(text -> {
-            Component component = legacySerializer.deserialize(text);
-            return legacySerializer.serialize(component);
-        });
-        return toReplace;
-    }
-
-    public static @NonNull String SubstituteXrayerSlotAndColorCodePlaceholders(String toReplace, int slot) {
-        toReplace = toReplace.replace("{Slot}", Integer.toString(slot));
-        Component component = legacySerializer.deserialize(toReplace);
-        return legacySerializer.serialize(component);
-    }
-
     public static List<String> SubstituteXrayerDataAndColorCodePlaceholders(@NonNull List<String> toReplace, String handledTimesAmount, String firstHandleTime, String lastSeenTime) {
         for (int i = 0; i < toReplace.size(); i++) {
             String line = toReplace.get(i);

@@ -41,8 +41,6 @@ public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
     public final int minAccountableMillisecondDeltaForThirtyMinedBlocks = 0;
     public final HashMap<String, MiningSession> sessions = new HashMap<>();
     public final MemoryManager mm = new MemoryManager(this);
-    private final int mainRunnableFrequency = 200;
-    private final int suspicionStreakZeroThreshold = 20;
     public XrayerVault vault;
     private APIAntiXrayHeuristics api;
     private int nonOreStreakDecreaseAmount;
@@ -51,10 +49,12 @@ public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
     private float extraEmeraldWeight;
     private float extraAncientDebrisWeight;
 
+    @SuppressWarnings("unused")
     public static AntiXrayHeuristics GetPlugin() {
         return plugin;
     }
 
+    @SuppressWarnings("unused")
     public APIAntiXrayHeuristics GetAPI() {
         return this.api;
     }

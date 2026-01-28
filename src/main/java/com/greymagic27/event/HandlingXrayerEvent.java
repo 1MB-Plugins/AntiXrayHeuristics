@@ -19,10 +19,12 @@ public final class HandlingXrayerEvent extends Event implements Cancellable {
         handledPlayer = handled;
     }
 
+    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
         return handlers;
     }
 
+    @SuppressWarnings("unused")
     public Player getHandledPlayer() {
         return handledPlayer;
     }
