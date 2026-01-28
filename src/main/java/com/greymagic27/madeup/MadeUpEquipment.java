@@ -9,27 +9,26 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("DataFlowIssue")
 public class MadeUpEquipment implements EntityEquipment {
     @Override
-    public void setItem(@NotNull EquipmentSlot slot, ItemStack item) {
+    public void setItem(@NonNull EquipmentSlot slot, ItemStack item) {
 
     }
 
     @Override
-    public void setItem(@NotNull EquipmentSlot equipmentSlot, ItemStack itemStack, boolean b) {
+    public void setItem(@NonNull EquipmentSlot equipmentSlot, ItemStack itemStack, boolean b) {
 
     }
 
     @Override
-    public @NotNull ItemStack getItem(@NotNull EquipmentSlot slot) {
+    public @NonNull ItemStack getItem(@NonNull EquipmentSlot slot) {
         return RandomItemStackGenerator.GetRandomItemStack();
     }
 
     @Override
-    public @NotNull ItemStack getItemInMainHand() {
+    public @NonNull ItemStack getItemInMainHand() {
         return RandomItemStackGenerator.GetRandomItemStack();
     }
 
@@ -44,7 +43,7 @@ public class MadeUpEquipment implements EntityEquipment {
     }
 
     @Override
-    public @NotNull ItemStack getItemInOffHand() {
+    public @NonNull ItemStack getItemInOffHand() {
         return RandomItemStackGenerator.GetRandomItemStack();
     }
 
@@ -59,7 +58,7 @@ public class MadeUpEquipment implements EntityEquipment {
     }
 
     @Override
-    public @NotNull ItemStack getItemInHand() {
+    public @NonNull ItemStack getItemInHand() {
         return RandomItemStackGenerator.GetRandomItemStack();
     }
 
@@ -129,12 +128,12 @@ public class MadeUpEquipment implements EntityEquipment {
     }
 
     @Override
-    public ItemStack @NotNull [] getArmorContents() {
+    public ItemStack @NonNull [] getArmorContents() {
         return new ItemStack[0];
     }
 
     @Override
-    public void setArmorContents(ItemStack @NotNull [] items) {
+    public void setArmorContents(ItemStack @NonNull [] items) {
 
     }
 
@@ -214,17 +213,17 @@ public class MadeUpEquipment implements EntityEquipment {
     }
 
     @Override
-    public @NotNull Entity getHolder() {
+    public @NonNull Entity getHolder() {
         return null;
     }
 
     @Override
-    public float getDropChance(@NotNull EquipmentSlot slot) {
+    public float getDropChance(@NonNull EquipmentSlot slot) {
         return 0;
     }
 
     @Override
-    public void setDropChance(@NotNull EquipmentSlot slot, float chance) {
+    public void setDropChance(@NonNull EquipmentSlot slot, float chance) {
 
     }
 }

@@ -8,7 +8,6 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 public class CommandAXH implements CommandExecutor {
 
@@ -20,7 +19,7 @@ public class CommandAXH implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
+    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, String @NonNull [] args) {
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("xrayer") || args[0].equalsIgnoreCase("x")) {
                 CommandARGXrayer.X(sender, mainClassAccess);

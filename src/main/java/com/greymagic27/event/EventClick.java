@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.jetbrains.annotations.NotNull;
 
 public class EventClick implements Listener {
 
@@ -31,7 +30,7 @@ public class EventClick implements Listener {
     }
 
     @EventHandler
-    public void clickEvent(@NotNull InventoryClickEvent e) {
+    public void clickEvent(@NonNull InventoryClickEvent e) {
         //Check if click occurred with xrayer vault gui view open:
         String title = PlainTextComponentSerializer.plainText().serialize(e.getView().title());
         if (title.toLowerCase(Locale.ROOT).startsWith("Xrayer".toLowerCase(Locale.ROOT))) {

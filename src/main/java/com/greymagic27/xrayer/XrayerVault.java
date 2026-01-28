@@ -33,7 +33,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class XrayerVault {
     private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
@@ -140,7 +140,7 @@ public class XrayerVault {
      * @param name            The name of the player to be cleared from xrayer data
      * @param nameIsSolicitor The method needs to know if the player requesting the data removal is also the one whose data should be removed
      */
-    public void XrayerDataRemover(String name, @NotNull Boolean nameIsSolicitor) {
+    public void XrayerDataRemover(String name, @NonNull Boolean nameIsSolicitor) {
         final String xrayerUUID;
         if (nameIsSolicitor) xrayerUUID = GetInspectedXrayer(name);
         else xrayerUUID = Objects.requireNonNull(Bukkit.getServer().getPlayer(name)).getUniqueId().toString();
@@ -220,7 +220,7 @@ public class XrayerVault {
      * @param player The player the vault will open for
      * @param page   What page the player will view
      */
-    public void OpenVault(@NotNull Player player, int page) {
+    public void OpenVault(@NonNull Player player, int page) {
         //Recalculate pages length:
         CalculatePages();
         player.playSound(player.getLocation(), Sound.BLOCK_ENDER_CHEST_OPEN, 100, 1);
@@ -349,7 +349,7 @@ public class XrayerVault {
      * @param player          player for which the xrayer's vault (xrayer's confiscated inventory, information and actions) GUI window will open
      * @param xrayerUUIDIndex the xrayer's index in the UUID ArrayList. This is actually the same value as the xrayer head position in the main GUI with the xrayer heads
      */
-    public void OpenXrayerConfiscatedInventory(@NotNull Player player, int xrayerUUIDIndex) {
+    public void OpenXrayerConfiscatedInventory(@NonNull Player player, int xrayerUUIDIndex) {
         viewers.get(player.getName()).xrayerInvUUID = UUIDs.get(xrayerUUIDIndex); //Update uuid of the xrayer we're watching
 
         Bukkit.getScheduler().runTaskAsynchronously(mainClassAccess, () -> mainClassAccess.mm.GetXrayerBelongings(UUIDs.get(xrayerUUIDIndex), belongings -> {

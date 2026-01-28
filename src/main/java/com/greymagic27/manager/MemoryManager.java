@@ -37,7 +37,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -266,7 +265,7 @@ public class MemoryManager {
     }
 
     //Returns true if UUID was found in the database
-    private boolean SQLFindUUID(java.sql.@NotNull Connection connection, String n) throws SQLException {
+    private boolean SQLFindUUID(java.sql.@NonNull Connection connection, String n) throws SQLException {
         PreparedStatement query = connection.prepareStatement("SELECT COUNT(1) FROM Xrayers WHERE UUID = ?");
         query.setString(1, n);
 
@@ -355,7 +354,7 @@ public class MemoryManager {
         }
     }
 
-    private void SQLGetAllBaseXrayerData(java.sql.@NotNull Connection connection, final CallbackGetAllBaseXrayerData callback) throws SQLException //Returns all the basic xrayer information (pretty much everything except for the inventory and handlecoordinates)
+    private void SQLGetAllBaseXrayerData(java.sql.@NonNull Connection connection, final CallbackGetAllBaseXrayerData callback) throws SQLException //Returns all the basic xrayer information (pretty much everything except for the inventory and handlecoordinates)
     {
         PreparedStatement entry = connection.prepareStatement("SELECT UUID, Handled, FirstHandleTime FROM Xrayers");
 
@@ -377,7 +376,7 @@ public class MemoryManager {
         Bukkit.getScheduler().runTask(mainClassAccess, callback::onQueryDone);
     }
 
-    private void SQLGetXrayerBelongings(java.sql.@NotNull Connection connection, String xrayerUUID, CallbackGetXrayerBelongings callback) throws SQLException //Gets an xrayer player's (by UUID) confiscated belongings
+    private void SQLGetXrayerBelongings(java.sql.@NonNull Connection connection, String xrayerUUID, CallbackGetXrayerBelongings callback) throws SQLException //Gets an xrayer player's (by UUID) confiscated belongings
     {
         PreparedStatement query = connection.prepareStatement("SELECT Belongings FROM Xrayers WHERE UUID = ?");
         query.setString(1, xrayerUUID);
@@ -395,7 +394,7 @@ public class MemoryManager {
         }
     }
 
-    private void SQLGetXrayerHandleLocation(java.sql.@NotNull Connection connection, String xrayerUUID, CallbackGetXrayerHandleLocation callback) throws SQLException //Gets an xrayer player's (by UUID) handle location
+    private void SQLGetXrayerHandleLocation(java.sql.@NonNull Connection connection, String xrayerUUID, CallbackGetXrayerHandleLocation callback) throws SQLException //Gets an xrayer player's (by UUID) handle location
     {
         PreparedStatement query = connection.prepareStatement("SELECT HandleLocation FROM Xrayers WHERE UUID = ?");
         query.setString(1, xrayerUUID);
@@ -411,7 +410,7 @@ public class MemoryManager {
         Bukkit.getScheduler().runTask(mainClassAccess, () -> callback.onQueryDone(deserializedHandleLocation));
     }
 
-    private void SQLDeleteXrayer(java.sql.@NotNull Connection connection, String xrayerUUID) throws SQLException //Removes player (by UUID) from xrayers database
+    private void SQLDeleteXrayer(java.sql.@NonNull Connection connection, String xrayerUUID) throws SQLException //Removes player (by UUID) from xrayers database
     {
         PreparedStatement purge = connection.prepareStatement("DELETE FROM Xrayers WHERE UUID = ?");
         purge.setString(1, xrayerUUID);
@@ -419,7 +418,7 @@ public class MemoryManager {
         purge.executeUpdate();
     }
 
-    private void SQLDeleteRegistry(java.sql.@NotNull Connection connection) throws SQLException //Truncates the whole Xrayers table, basically emptying all registered xrayers
+    private void SQLDeleteRegistry(java.sql.@NonNull Connection connection) throws SQLException //Truncates the whole Xrayers table, basically emptying all registered xrayers
     {
         PreparedStatement purge = connection.prepareStatement("TRUNCATE TABLE Xrayers");
 

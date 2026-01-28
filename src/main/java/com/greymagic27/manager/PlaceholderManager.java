@@ -4,33 +4,32 @@ import java.util.List;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class PlaceholderManager {
 
     private static final LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.legacyAmpersand();
 
-    public static @NotNull String SubstitutePlayerNameAndColorCodePlaceholders(String toReplace, String player) {
+    public static @NonNull String SubstitutePlayerNameAndColorCodePlaceholders(String toReplace, String player) {
         toReplace = toReplace.replace("{PlayerName}", player);
         Component component = legacySerializer.deserialize(toReplace);
         return legacySerializer.serialize(component);
     }
 
-    public static @NotNull String SubstitutePlayerNameAndHandleTimesPlaceholders(String toReplace, String player, String handleTimes) {
+    public static @NonNull String SubstitutePlayerNameAndHandleTimesPlaceholders(String toReplace, String player, String handleTimes) {
         toReplace = toReplace.replace("{PlayerName}", player);
         toReplace = toReplace.replace("{TimesDetected}", handleTimes);
         Component component = legacySerializer.deserialize(toReplace);
         return legacySerializer.serialize(component);
     }
 
-    public static @NotNull String SubstituteColorCodePlaceholders(String toReplace) {
+    public static @NonNull String SubstituteColorCodePlaceholders(String toReplace) {
         Component component = legacySerializer.deserialize(toReplace);
         return legacySerializer.serialize(component);
     }
 
     @Contract("_ -> param1")
-    public static @NotNull List<String> SubstituteColorCodePlaceholders(@NotNull List<String> toReplace) {
+    public static @NonNull List<String> SubstituteColorCodePlaceholders(@NonNull List<String> toReplace) {
         toReplace.replaceAll(text -> {
             Component component = legacySerializer.deserialize(text);
             return legacySerializer.serialize(component);
@@ -38,13 +37,13 @@ public class PlaceholderManager {
         return toReplace;
     }
 
-    public static @NotNull String SubstituteXrayerSlotAndColorCodePlaceholders(String toReplace, int slot) {
+    public static @NonNull String SubstituteXrayerSlotAndColorCodePlaceholders(String toReplace, int slot) {
         toReplace = toReplace.replace("{Slot}", Integer.toString(slot));
         Component component = legacySerializer.deserialize(toReplace);
         return legacySerializer.serialize(component);
     }
 
-    public static List<String> SubstituteXrayerDataAndColorCodePlaceholders(@NotNull List<String> toReplace, String handledTimesAmount, String firstHandleTime, String lastSeenTime) {
+    public static List<String> SubstituteXrayerDataAndColorCodePlaceholders(@NonNull List<String> toReplace, String handledTimesAmount, String firstHandleTime, String lastSeenTime) {
         for (int i = 0; i < toReplace.size(); i++) {
             String line = toReplace.get(i);
             line = line.replace("{HandledTimesAmount}", handledTimesAmount);

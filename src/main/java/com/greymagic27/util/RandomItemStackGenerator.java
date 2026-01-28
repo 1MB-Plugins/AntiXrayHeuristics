@@ -7,10 +7,9 @@ package com.greymagic27.util;
 import java.util.Random;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 public class RandomItemStackGenerator {
-    public static @NotNull ItemStack GetRandomItemStack() {
+    public static @NonNull ItemStack GetRandomItemStack() {
         Random random = new Random();
         int material = random.nextInt(Material.values().length); //Random material
         int amount = Material.values()[material].getMaxStackSize(); //Max stack size

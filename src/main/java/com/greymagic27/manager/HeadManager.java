@@ -16,7 +16,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HeadManager {
@@ -29,7 +28,7 @@ public class HeadManager {
      * @param callback   Optionally add a callback for post-async task
      * @return ItemStack with the player's skull as material
      */
-    public static @NotNull ItemStack GetPlayerHead(UUID playerUUID, CallbackAddXrayerHeadToCache callback) {
+    public static @NonNull ItemStack GetPlayerHead(UUID playerUUID, CallbackAddXrayerHeadToCache callback) {
         String playerName = Bukkit.getOfflinePlayer(playerUUID).getName();
 
         String value;
@@ -46,7 +45,7 @@ public class HeadManager {
     /**
      * Gets a head by UUID
      */
-    static @NotNull ItemStack GetHead(String value) {
+    static @NonNull ItemStack GetHead(String value) {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         if (skullMeta == null) return skull;
@@ -83,7 +82,7 @@ public class HeadManager {
     /**
      * Gets the contents of a web URL as a string
      */
-    private static @NotNull String GetURLContent(String urlStr) {
+    private static @NonNull String GetURLContent(String urlStr) {
         URL url;
         URI uri;
         BufferedReader in = null;

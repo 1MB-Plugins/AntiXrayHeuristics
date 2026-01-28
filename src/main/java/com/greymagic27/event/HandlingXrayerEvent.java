@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public final class HandlingXrayerEvent extends Event implements Cancellable {
@@ -36,7 +35,7 @@ public final class HandlingXrayerEvent extends Event implements Cancellable {
         cancelled = cancel;
     }
 
-    public @NotNull HandlerList getHandlers() {
+    public @NonNull HandlerList getHandlers() {
         return handlers;
     }
 }

@@ -2,8 +2,8 @@ package com.greymagic27.command;
 
 import com.greymagic27.AntiXrayHeuristics;
 import com.greymagic27.manager.LocaleManager;
-import com.greymagic27.util.MiningSession;
 import com.greymagic27.manager.PlaceholderManager;
+import com.greymagic27.util.MiningSession;
 import java.util.Objects;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;

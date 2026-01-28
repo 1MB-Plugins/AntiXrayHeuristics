@@ -11,7 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.jetbrains.annotations.NotNull;
 
 public class EventInventoryClose implements Listener {
 
@@ -22,7 +21,7 @@ public class EventInventoryClose implements Listener {
     }
 
     @EventHandler
-    public void closeEv(@NotNull InventoryCloseEvent e) //Removes the player as an Xrayer Vault viewer with a delay after closing the Xrayer Vault inventory, only if player isn't still looking at inv.
+    public void closeEv(@NonNull InventoryCloseEvent e) //Removes the player as an Xrayer Vault viewer with a delay after closing the Xrayer Vault inventory, only if player isn't still looking at inv.
     {
         if (PlainTextComponentSerializer.plainText().serialize(e.getView().title()).equals("Xrayer Vault")) {
             Bukkit.getScheduler().runTaskLater(mainClassAccess, () -> {

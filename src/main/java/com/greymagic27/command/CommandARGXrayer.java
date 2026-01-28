@@ -8,12 +8,11 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class CommandARGXrayer {
     private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
 
-    public static void X(CommandSender sender, @NotNull AntiXrayHeuristics mainClass) { // Non-parametrized
+    public static void X(CommandSender sender, @NonNull AntiXrayHeuristics mainClass) { // Non-parametrized
         if (mainClass.getConfig().getBoolean("AddRandomDummyXrayerIfNoXrayerCommandParameters")) {
             if (sender instanceof Player player) {
                 if (player.hasPermission("AXH.Commands.Xrayer")) {

@@ -30,7 +30,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BlockVector;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings("unused")
 public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
@@ -120,7 +120,7 @@ public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
         }).runTaskTimer(this, 200L, 200L);
     }
 
-    private void UpdateTrail(BlockBreakEvent ev, @NotNull MiningSession s) {
+    private void UpdateTrail(BlockBreakEvent ev, @NonNull MiningSession s) {
         if (s.GetLastBlockCoordsStoreCounter() == 3) s.SetMinedBlocksTrailArrayPos(s.GetNextCoordsStorePos(), ev.getBlock().getLocation().toVector().toBlockVector());
         s.CycleBlockCoordsStoreCounter();
         s.CycleNextCoordsStorePos();
@@ -148,15 +148,15 @@ public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
         return mineralWeight + mineralWeight / fractionReducerValue;
     }
 
-    private boolean CheckGoldBiome(@NotNull BlockBreakEvent ev) {
+    private boolean CheckGoldBiome(@NonNull BlockBreakEvent ev) {
         return ev.getPlayer().getLocation().getBlock().getBiome() == Biome.BADLANDS || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.WOODED_BADLANDS || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.ERODED_BADLANDS;
     }
 
-    private boolean CheckEmeraldBiome(@NotNull BlockBreakEvent ev) {
+    private boolean CheckEmeraldBiome(@NonNull BlockBreakEvent ev) {
         return ev.getPlayer().getLocation().getBlock().getBiome() == Biome.MEADOW || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.CHERRY_GROVE || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.GROVE || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.SNOWY_SLOPES || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.JAGGED_PEAKS || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.FROZEN_PEAKS || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.STONY_PEAKS || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.WINDSWEPT_HILLS || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.WINDSWEPT_GRAVELLY_HILLS || ev.getPlayer().getLocation().getBlock().getBiome() == Biome.WINDSWEPT_FOREST;
     }
 
-    private boolean UpdateMiningSession(@NotNull BlockBreakEvent ev, Material m) {
+    private boolean UpdateMiningSession(@NonNull BlockBreakEvent ev, Material m) {
         MiningSession s = this.sessions.get(ev.getPlayer().getName());
         if (s == null) return false;
         System.out.print(m);
@@ -277,7 +277,7 @@ public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
         return true;
     }
 
-    private Material RelevantBlockCheck(@NotNull BlockBreakEvent e) {
+    private Material RelevantBlockCheck(@NonNull BlockBreakEvent e) {
         if (e.getBlock().getType() == Material.STONE) return Material.STONE;
         if (e.getBlock().getType() == Material.NETHERRACK) return Material.NETHERRACK;
         if (e.getBlock().getType() == Material.DEEPSLATE) return Material.DEEPSLATE;
@@ -306,7 +306,7 @@ public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
 
     }
 
-    public void BBEventAnalyzer(@NotNull BlockBreakEvent ev) {
+    public void BBEventAnalyzer(@NonNull BlockBreakEvent ev) {
         if (!ev.getPlayer().hasPermission("AXH.Ignore")) {
             Material m = RelevantBlockCheck(ev);
             if (m != Material.AIR && !UpdateMiningSession(ev, m)) if (m == Material.STONE || m == Material.NETHERRACK) {
