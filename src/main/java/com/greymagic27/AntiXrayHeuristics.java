@@ -1,5 +1,22 @@
 package com.greymagic27;
 
+import com.greymagic27.api.APIAntiXrayHeuristics;
+import com.greymagic27.api.APIAntiXrayHeuristicsImpl;
+import com.greymagic27.command.CommandAXH;
+import com.greymagic27.command.CommandAXHAutoCompleter;
+import com.greymagic27.util.MiningSession;
+import com.greymagic27.event.EventBlockBreak;
+import com.greymagic27.event.EventBlockPlace;
+import com.greymagic27.event.EventClick;
+import com.greymagic27.event.EventInventoryClose;
+import com.greymagic27.event.EventItemDrag;
+import com.greymagic27.event.EventPlayerChangedWorld;
+import com.greymagic27.manager.MemoryManager;
+import com.greymagic27.util.BlockWeightInfo;
+import com.greymagic27.manager.LocaleManager;
+import com.greymagic27.util.WeightsCard;
+import com.greymagic27.xrayer.XrayerHandler;
+import com.greymagic27.xrayer.XrayerVault;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Set;

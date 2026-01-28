@@ -1,0 +1,22 @@
+//--------------------------------------------------------------------
+// Copyright © Dylan Calaf Latham 2019-2021 AntiXrayHeuristics
+//--------------------------------------------------------------------
+
+package com.greymagic27.xrayer;
+
+public class Xrayer {
+
+    public final String UUID;
+    public final String FirstHandleTime;
+    public final String HandleLocation;
+    public final String Belongings;
+    public int Handled;
+
+    public Xrayer(String uuid, int handled, String firsthandletime, String handlelocation, String belongings) {
+        UUID = uuid;
+        Handled = handled;
+        FirstHandleTime = firsthandletime;
+        HandleLocation = handlelocation;
+        Belongings = belongings;
+    }
+}
