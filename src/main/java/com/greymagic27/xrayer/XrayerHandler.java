@@ -100,7 +100,7 @@ public class XrayerHandler {
 
     public static void AddDummyXrayer() {
         AntiXrayHeuristics mainClass = JavaPlugin.getPlugin(AntiXrayHeuristics.class);
-        Bukkit.getScheduler().runTaskAsynchronously(mainClass, () -> mainClass.mm.StoreDummyPlayerData(handleTimes -> {
+        Bukkit.getScheduler().runTaskAsynchronously(mainClass, () -> mainClass.mm.StoreDummyPlayerData(_ -> {
             if (mainClass.getConfig().getBoolean("UseHeadsInGUI")) {
                 String nonRepeatingRandomUUID;
                 do {

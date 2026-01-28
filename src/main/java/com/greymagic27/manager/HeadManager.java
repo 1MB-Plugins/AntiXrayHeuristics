@@ -29,7 +29,7 @@ public class HeadManager {
      * @param callback   Optionally add a callback for post-async task
      * @return ItemStack with the player's skull as material
      */
-    static @NotNull ItemStack GetPlayerHead(UUID playerUUID, CallbackAddXrayerHeadToCache callback) {
+    public static @NotNull ItemStack GetPlayerHead(UUID playerUUID, CallbackAddXrayerHeadToCache callback) {
         String playerName = Bukkit.getOfflinePlayer(playerUUID).getName();
 
         String value;

@@ -9,7 +9,7 @@ public class PlayerViewInfo {
 
     public String xrayerInvUUID; //Current or last viewed xrayer vault's Player UUID
 
-    PlayerViewInfo(int pag) {
+    public PlayerViewInfo(int pag) {
         page = pag;
         xrayerInvUUID = null;
     }

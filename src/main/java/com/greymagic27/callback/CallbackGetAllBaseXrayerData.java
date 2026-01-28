@@ -1,5 +1,5 @@
 package com.greymagic27.callback;
 
-interface CallbackGetAllBaseXrayerData {
+public interface CallbackGetAllBaseXrayerData {
     void onQueryDone();
 }

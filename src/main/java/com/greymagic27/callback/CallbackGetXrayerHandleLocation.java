@@ -2,6 +2,6 @@ package com.greymagic27.callback;
 
 import org.bukkit.Location;
 
-interface CallbackGetXrayerHandleLocation {
+public interface CallbackGetXrayerHandleLocation {
     void onQueryDone(Location handlelocation);
 }

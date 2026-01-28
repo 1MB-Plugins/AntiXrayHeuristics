@@ -5,12 +5,11 @@
 package com.greymagic27.xrayer;
 
 import com.greymagic27.AntiXrayHeuristics;
+import com.greymagic27.callback.CallbackUpdateXrayerHeadCache;
 import com.greymagic27.manager.HeadManager;
 import com.greymagic27.manager.LocaleManager;
-import com.greymagic27.util.MathFunctions;
 import com.greymagic27.manager.PlaceholderManager;
 import com.greymagic27.util.PlayerViewInfo;
-import com.greymagic27.callback.CallbackUpdateXrayerHeadCache;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,10 +116,6 @@ public class XrayerVault {
 
     }
 
-    public String GetGUITitle() {
-        return GUITitle;
-    }
-
     public List<String> GetUUIDs() {
         return UUIDs;
     }
@@ -143,25 +138,14 @@ public class XrayerVault {
      * persistent data storage and data loaded in RAM for vault, and refresh vault, sending all viewers back to page 0 for safety
      *
      * @param name            The name of the player to be cleared from xrayer data
-     * @param nameIsSolicitor The method needs to know if the player requesting the data removal is also the one who's data should be removed
+     * @param nameIsSolicitor The method needs to know if the player requesting the data removal is also the one whose data should be removed
      */
     public void XrayerDataRemover(String name, @NotNull Boolean nameIsSolicitor) {
         final String xrayerUUID;
-        if (nameIsSolicitor) //Inputted name is the solicitor viewing xrayer through gui. We can get the xrayer's name since it's stored in this same vault
-        {
-            //Purge player from memory:
-            xrayerUUID = GetInspectedXrayer(name);
-            Bukkit.getScheduler().runTaskAsynchronously(mainClassAccess, () -> mainClassAccess.mm.DeleteXrayer(xrayerUUID));
-            //Remove absolved uuid from being listed in vault:
-            RemoveXrayerDataByUUIDFromList(xrayerUUID);
-        } else //Should be the actual specific xrayer's name
-        {
-            //Purge player from memory:
-            xrayerUUID = Objects.requireNonNull(Bukkit.getServer().getPlayer(name)).getUniqueId().toString();
-            Bukkit.getScheduler().runTaskAsynchronously(mainClassAccess, () -> mainClassAccess.mm.DeleteXrayer(xrayerUUID));
-            //Remove absolved uuid from being listed in vault:
-            RemoveXrayerDataByUUIDFromList(xrayerUUID);
-        }
+        if (nameIsSolicitor) xrayerUUID = GetInspectedXrayer(name);
+        else xrayerUUID = Objects.requireNonNull(Bukkit.getServer().getPlayer(name)).getUniqueId().toString();
+        Bukkit.getScheduler().runTaskAsynchronously(mainClassAccess, () -> mainClassAccess.mm.DeleteXrayer(xrayerUUID));
+        RemoveXrayerDataByUUIDFromList(xrayerUUID);
         //Recalculate pages length:
         CalculatePages();
         //Send viewers back to page 0:
@@ -210,7 +194,7 @@ public class XrayerVault {
      * Calculates pages considering the amount of registered xrayer uuid's, and that there can only be 45 results per page
      */
     private void CalculatePages() {
-        pages = MathFunctions.Cut(45, UUIDs.size());
+        pages = Math.max(1, Math.ceilDiv(UUIDs.size(), 45));
     }
 
     /**

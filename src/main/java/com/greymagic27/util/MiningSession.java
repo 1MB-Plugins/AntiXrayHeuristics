@@ -9,15 +9,16 @@ import java.util.Arrays;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BlockVector;
 
 public class MiningSession { //Contains heuristics tracked per player
 
     private final AntiXrayHeuristics mainClassAccess;
     //Mined blocks trail tracking algorithm variables:
-    private final IntVector3[] minedBlocksTrailCoords = new IntVector3[10];
+    private final BlockVector[] minedBlocksTrailCoords = new BlockVector[10];
     public int minedNonOreBlocksStreak = 0; //Tracks how many non-ore blocks have been mined in streak.
     public int foundAtZeroSuspicionStreak = 0; //Tracks how many times this mining session has been found at suspicion level 0 during Runnable tasks.
-    float suspicionDecreaseAmount = -4; //How much "suspicionLevel" to reduce for the this MiningSession every "mainRunnableFrequency" in AntiXrayHeuristics.java. This value results from a calculation based on speed.
+    float suspicionDecreaseAmount = -4; //How much "suspicionLevel" to reduce for the MiningSession every "mainRunnableFrequency" in AntiXrayHeuristics.java. This value results from a calculation based on speed.
     //General distance/time algorithm variables:
     private float suspicionLevel = 0.0f; //Level of suspicion for the player
     private Material lastMinedOre = null; //Last mined Material ore name
@@ -29,7 +30,7 @@ public class MiningSession { //Contains heuristics tracked per player
     private int nextCoordsStorePos = 0; //Position where next mined block coordinates will be stored
     private int counterSinceLastBlockCoordsStore = 0; //Counts how many blocks we've mined since last mined block coordinates storing
 
-    MiningSession(AntiXrayHeuristics main) {
+    public MiningSession(AntiXrayHeuristics main) {
         this.mainClassAccess = main;
         lastThirtyBlocksTime = (int) System.currentTimeMillis();
     }
@@ -129,13 +130,13 @@ public class MiningSession { //Contains heuristics tracked per player
         return nextCoordsStorePos;
     }
 
-    public IntVector3 GetMinedBlocksTrailArrayPos(int pos) {
+    public BlockVector GetMinedBlocksTrailArrayPos(int pos) {
         return minedBlocksTrailCoords[pos];
     }
 
     //void SetMinedBlocksTrailArrayPos(int pos, int x, int y, int z) { minedBlocksTrailCoords[pos] = new IntVector3(x, y, z); }
-    public void SetMinedBlocksTrailArrayPos(int pos, Location l) {
-        minedBlocksTrailCoords[pos] = new IntVector3(l);
+    public void SetMinedBlocksTrailArrayPos(int pos, BlockVector l) {
+        minedBlocksTrailCoords[pos] = new BlockVector(l);
     }
 
     public void ResetBlocksTrailArray() {

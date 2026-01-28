@@ -17,7 +17,7 @@ public class LocaleManager {
     private static File localeFile;
     private static FileConfiguration localeConfiguration;
 
-    private static void SetDefaultFileEntries() //Sets the default language entries in english
+    private static void SetDefaultFileEntries() //Sets the default language entries in English
     {
         //Messages prefix:
         localeConfiguration.addDefault("MessagesPrefix", "&5[&b1MB Xray&5]");

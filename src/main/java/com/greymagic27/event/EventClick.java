@@ -32,10 +32,10 @@ public class EventClick implements Listener {
 
     @EventHandler
     public void clickEvent(@NotNull InventoryClickEvent e) {
-        //Check if click occured with xrayer vault gui view open:
+        //Check if click occurred with xrayer vault gui view open:
         String title = PlainTextComponentSerializer.plainText().serialize(e.getView().title());
         if (title.toLowerCase(Locale.ROOT).startsWith("Xrayer".toLowerCase(Locale.ROOT))) {
-            //A non-null, non AIR, upper window slot was clicked
+            //A non-null, non-AIR, upper window slot was clicked
             if (e.getCurrentItem() != null && e.getRawSlot() < e.getView().getTopInventory().getSize() && e.getCurrentItem().getType() != Material.AIR) {
                 //An item was clicked
                 final String playerWhoClicked = e.getWhoClicked().getName();

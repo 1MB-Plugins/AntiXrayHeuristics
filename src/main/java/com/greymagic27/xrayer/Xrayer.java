@@ -12,11 +12,11 @@ public class Xrayer {
     public final String Belongings;
     public int Handled;
 
-    public Xrayer(String uuid, int handled, String firsthandletime, String handlelocation, String belongings) {
+    public Xrayer(String uuid, int handled, String firstHandleTime, String handleLocation, String belongings) {
         UUID = uuid;
         Handled = handled;
-        FirstHandleTime = firsthandletime;
-        HandleLocation = handlelocation;
+        FirstHandleTime = firstHandleTime;
+        HandleLocation = handleLocation;
         Belongings = belongings;
     }
 }

@@ -7,13 +7,13 @@ package com.greymagic27.manager;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.greymagic27.AntiXrayHeuristics;
-import com.greymagic27.util.BukkitSerializer;
-import com.greymagic27.StorePlayerDataCallback;
 import com.greymagic27.callback.CallbackGetAllBaseXrayerData;
 import com.greymagic27.callback.CallbackGetXrayerBelongings;
 import com.greymagic27.callback.CallbackGetXrayerHandleLocation;
+import com.greymagic27.callback.StorePlayerDataCallback;
 import com.greymagic27.madeup.MadeUpEquipment;
 import com.greymagic27.madeup.MadeUpInventory;
+import com.greymagic27.util.BukkitSerializer;
 import com.greymagic27.xrayer.Xrayer;
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,17 +42,16 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("ClassEscapesDefinedScope")
 public class MemoryManager {
 
     private static final Logger log = LoggerFactory.getLogger(MemoryManager.class);
     private final AntiXrayHeuristics mainClassAccess;
     //SQL Data:
-    private BasicDataSource dataSource; //Stores a pool of sql connections
+    private BasicDataSource dataSource; //Stores a pool of SQL connections
     //JSON Data:
     private List<Xrayer> storedXrayersFromJSON = new ArrayList<>(); //Used for loading xrayer data from JSON
 
-    MemoryManager(AntiXrayHeuristics main) {
+    public MemoryManager(AntiXrayHeuristics main) {
         this.mainClassAccess = main;
     }
 
@@ -60,7 +59,7 @@ public class MemoryManager {
     //The methods are designed to be called asynchronously through Bukkit's scheduler, and return data through a callback function:
 
     //Stores player as xrayer with data
-    void StorePlayerData(Player player, final StorePlayerDataCallback callback) {
+    public void StorePlayerData(Player player, final StorePlayerDataCallback callback) {
         switch (Objects.requireNonNull(mainClassAccess.getConfig().getString("StorageType"))) {
             case "MYSQL":
                 try (Connection cn = dataSource.getConnection()) {
@@ -84,7 +83,7 @@ public class MemoryManager {
     }
 
     //Stores fake player as xrayer with fake data
-    void StoreDummyPlayerData(final StorePlayerDataCallback callback) {
+    public void StoreDummyPlayerData(final StorePlayerDataCallback callback) {
         switch (Objects.requireNonNull(mainClassAccess.getConfig().getString("StorageType"))) {
             case "MYSQL":
                 try (Connection cn = dataSource.getConnection()) {
@@ -227,11 +226,10 @@ public class MemoryManager {
 
     //------------------ SQL RELATED OPERATIONS ------------------:
 
-    void InitializeDataSource() {
+    public void InitializeDataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
 
-        if (!Objects.equals(mainClassAccess.getConfig().getString("SQLDriverClassName"), ""))
-            basicDataSource.setDriverClassName(mainClassAccess.getConfig().getString("SQLDriverClassName"));
+        if (!Objects.equals(mainClassAccess.getConfig().getString("SQLDriverClassName"), "")) basicDataSource.setDriverClassName(mainClassAccess.getConfig().getString("SQLDriverClassName"));
         basicDataSource.setUsername(mainClassAccess.getConfig().getString("SQLUsername"));
         basicDataSource.setPassword(mainClassAccess.getConfig().getString("SQLPassword"));
         basicDataSource.setUrl("jdbc:mysql://" + mainClassAccess.getConfig().getString("SQLHost") + ":" + mainClassAccess.getConfig().getString("SQLPort") + "/" + mainClassAccess.getConfig().getString("SQLDatabaseName") + "?useSSL=false");
@@ -242,7 +240,7 @@ public class MemoryManager {
         dataSource = basicDataSource;
     }
 
-    void CloseDataSource() {
+    public void CloseDataSource() {
         try {
             dataSource.close();
         } catch (SQLException e) {
@@ -251,7 +249,7 @@ public class MemoryManager {
     }
 
     //Creates the Xrayers table
-    void SQLCreateTableIfNotExists() {
+    public void SQLCreateTableIfNotExists() {
         try (Connection cn = dataSource.getConnection()) {
             try {
                 if (cn != null) {
@@ -290,11 +288,9 @@ public class MemoryManager {
         {
             String serializedPlayerLocation;
             //Assign true "serialized" location
-            if (player != null)
-                serializedPlayerLocation = player.getLocation().getWorld().getName() + "," + player.getLocation().getX() + "," + player.getLocation().getY() + "," + player.getLocation().getZ() + "," + player.getLocation().getPitch() + "," + player.getLocation().getYaw();
+            if (player != null) serializedPlayerLocation = player.getLocation().getWorld().getName() + "," + player.getLocation().getX() + "," + player.getLocation().getY() + "," + player.getLocation().getZ() + "," + player.getLocation().getPitch() + "," + player.getLocation().getYaw();
                 //Assign default "fake" "serialized" location
-            else if (!mainClassAccess.getConfig().getStringList("TrackWorlds").isEmpty())
-                serializedPlayerLocation = mainClassAccess.getConfig().getStringList("TrackWorlds").getFirst() + ",0.0,0.0,0.0,0.0,0.0";
+            else if (!mainClassAccess.getConfig().getStringList("TrackWorlds").isEmpty()) serializedPlayerLocation = mainClassAccess.getConfig().getStringList("TrackWorlds").getFirst() + ",0.0,0.0,0.0,0.0,0.0";
             else serializedPlayerLocation = "world,0.0,0.0,0.0,0.0,0.0";
 
             if (mainClassAccess.getConfig().getBoolean("StoreCopy")) //Full store
@@ -308,8 +304,7 @@ public class MemoryManager {
                 entry.setString(3, dtf.format(now));
                 entry.setString(4, serializedPlayerLocation);
                 //Assign true player inventory and equipment
-                if (player != null)
-                    entry.setString(5, BukkitSerializer.itemStackArrayToBase64(BukkitSerializer.InventoryAndEquipmentToSingleItemStackArray(player.getInventory(), player.getEquipment())));
+                if (player != null) entry.setString(5, BukkitSerializer.itemStackArrayToBase64(BukkitSerializer.InventoryAndEquipmentToSingleItemStackArray(player.getInventory(), player.getEquipment())));
                     //Assign "fake" player inventory and equipment
                 else {
                     Inventory madeUpInventory = new MadeUpInventory();
@@ -360,7 +355,7 @@ public class MemoryManager {
         }
     }
 
-    private void SQLGetAllBaseXrayerData(java.sql.@NotNull Connection connection, final CallbackGetAllBaseXrayerData callback) throws SQLException //Returns all of the basic xrayer information (pretty much everything except for the inventory and handlecoordinates)
+    private void SQLGetAllBaseXrayerData(java.sql.@NotNull Connection connection, final CallbackGetAllBaseXrayerData callback) throws SQLException //Returns all the basic xrayer information (pretty much everything except for the inventory and handlecoordinates)
     {
         PreparedStatement entry = connection.prepareStatement("SELECT UUID, Handled, FirstHandleTime FROM Xrayers");
 
@@ -448,7 +443,7 @@ public class MemoryManager {
         }
     }
 
-    private void JSONStoreInFile(String toStore) //Writes json content as string to file
+    private void JSONStoreInFile(String toStore) //Writes JSON content as string to file
     {
         try {
             FileWriter writer = new FileWriter(mainClassAccess.getDataFolder().getAbsolutePath() + "/data.json");
@@ -459,7 +454,7 @@ public class MemoryManager {
         }
     }
 
-    private @Nullable BufferedReader JSONGetFromFile() //Gets json content from file in BufferedReader format
+    private @Nullable BufferedReader JSONGetFromFile() //Gets JSON content from file in BufferedReader format
     {
         try {
             return new BufferedReader(new FileReader(mainClassAccess.getDataFolder().getAbsolutePath() + "/data.json")); //Return buffered file contents
@@ -471,7 +466,7 @@ public class MemoryManager {
 
     //GSON Serialization functions
 
-    private String JSONSerializeXrayersData(List<Xrayer> xrayers) //Serializes public class ArrayList to json String
+    private String JSONSerializeXrayersData(List<Xrayer> xrayers) //Serializes public class ArrayList to JSON String
     {
         return new Gson().toJson(xrayers);
     }
@@ -479,12 +474,12 @@ public class MemoryManager {
     private List<Xrayer> JSONDeserializeXrayersData(BufferedReader xrayers) //Serializes from BufferedReader to ArrayList.
     {
         return new Gson().fromJson(xrayers, new TypeToken<ArrayList<Xrayer>>() {
-        }.getType()); //TypeToken gets the type of an arraylist of xrayers
+        }.getType()); //TypeToken gets the type of arraylist of xrayers
     }
 
     //File data manipulation and querying using GSON
 
-    private void JSONRefreshLoadedXrayerData() //Loads json data from file and converts it to List, assigning it to storedXrayersFromJSON, consequently refreshing it in RAM Stack
+    private void JSONRefreshLoadedXrayerData() //Loads JSON data from file and converts it to List, assigning it to storedXrayersFromJSON, consequently refreshing it in RAM Stack
     {
         storedXrayersFromJSON = JSONDeserializeXrayersData(JSONGetFromFile());
     }
@@ -525,11 +520,9 @@ public class MemoryManager {
 
             String serializedPlayerLocation;
             //Assign true "serialized" location
-            if (player != null)
-                serializedPlayerLocation = player.getLocation().getWorld().getName() + "," + player.getLocation().getX() + "," + player.getLocation().getY() + "," + player.getLocation().getZ() + "," + player.getLocation().getPitch() + "," + player.getLocation().getYaw();
+            if (player != null) serializedPlayerLocation = player.getLocation().getWorld().getName() + "," + player.getLocation().getX() + "," + player.getLocation().getY() + "," + player.getLocation().getZ() + "," + player.getLocation().getPitch() + "," + player.getLocation().getYaw();
                 //Assign default "fake" "serialized" location
-            else if (!mainClassAccess.getConfig().getStringList("TrackWorlds").isEmpty())
-                serializedPlayerLocation = mainClassAccess.getConfig().getStringList("TrackWorlds").getFirst() + ",0.0,0.0,0.0,0.0,0.0";
+            else if (!mainClassAccess.getConfig().getStringList("TrackWorlds").isEmpty()) serializedPlayerLocation = mainClassAccess.getConfig().getStringList("TrackWorlds").getFirst() + ",0.0,0.0,0.0,0.0,0.0";
             else serializedPlayerLocation = "world,0.0,0.0,0.0,0.0,0.0";
 
             if (mainClassAccess.getConfig().getBoolean("StoreCopy")) //Full store
@@ -539,8 +532,7 @@ public class MemoryManager {
 
                 //Add xrayer to List:
                 //Existing inventory and equipment
-                if (player != null)
-                    storedXrayersFromJSON.add(new Xrayer(playerUUID, 1, dtf.format(now), serializedPlayerLocation, BukkitSerializer.itemStackArrayToBase64(BukkitSerializer.InventoryAndEquipmentToSingleItemStackArray(player.getInventory(), player.getEquipment()))));
+                if (player != null) storedXrayersFromJSON.add(new Xrayer(playerUUID, 1, dtf.format(now), serializedPlayerLocation, BukkitSerializer.itemStackArrayToBase64(BukkitSerializer.InventoryAndEquipmentToSingleItemStackArray(player.getInventory(), player.getEquipment()))));
                     //Made up inventory and equipment
                 else {
                     Inventory madeUpInventory = new MadeUpInventory();
@@ -572,7 +564,7 @@ public class MemoryManager {
         }
     }
 
-    private void JSONGetAllBaseXrayerData(CallbackGetAllBaseXrayerData callback) //Returns all of the basic xrayer information (pretty much everything except for the inventory and handlecoordinates)
+    private void JSONGetAllBaseXrayerData(CallbackGetAllBaseXrayerData callback) //Returns all the basic xrayer information (pretty much everything except for the inventory and handlecoordinates)
     {
         //Refresh loaded xrayers in RAM Stack:
         JSONRefreshLoadedXrayerData();
@@ -597,7 +589,7 @@ public class MemoryManager {
     private void JSONGetXrayerBelongings(String xrayerUUID, CallbackGetXrayerBelongings callback) {
         //Refresh loaded xrayers in RAM Stack:
         JSONRefreshLoadedXrayerData();
-        //Find uuid, and return it's belongings:
+        //Find uuid, and return its belongings:
         for (Xrayer xrayer : storedXrayersFromJSON) {
             if (xrayer.UUID.equals(xrayerUUID)) {
                 try {
@@ -614,7 +606,7 @@ public class MemoryManager {
     private void JSONGetXrayerHandleLocation(String xrayerUUID, CallbackGetXrayerHandleLocation callback) {
         //Refresh loaded xrayers in RAM Stack:
         JSONRefreshLoadedXrayerData();
-        //Find uuid, and return it's handle location:
+        //Find uuid, and return its handle location:
         for (Xrayer xrayer : storedXrayersFromJSON) {
             if (xrayer.UUID.equals(xrayerUUID)) {
 

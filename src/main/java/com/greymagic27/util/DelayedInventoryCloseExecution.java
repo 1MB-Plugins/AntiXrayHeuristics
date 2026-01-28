@@ -13,12 +13,12 @@ public class DelayedInventoryCloseExecution implements Runnable {
     private final HumanEntity p;
     private final AntiXrayHeuristics mainClassAccess;
 
-    DelayedInventoryCloseExecution(HumanEntity player, AntiXrayHeuristics mca) {
+    public DelayedInventoryCloseExecution(HumanEntity player, AntiXrayHeuristics mca) {
         p = player;
         mainClassAccess = mca;
     }
 
-    public void run() //Xrayer vault cleanup, and additional cleanup if no one is inspecting the vault:
+    public void run() //Xrayer vault clean-up, and additional clean-up if no one is inspecting the vault:
     {
         if (!(p.getOpenInventory().title().equals(Component.text("Xrayer Vault")))) {
             mainClassAccess.vault.RemovePlayerAsViewer(p.getName()); //Remove the player as viewer inconditionally
