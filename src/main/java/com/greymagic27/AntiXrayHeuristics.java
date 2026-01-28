@@ -125,7 +125,7 @@ public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
         s.CycleNextCoordsStorePos();
     }
 
-    private float GetWeightFromAnalyzingTrail(BlockBreakEvent ev, MiningSession s, float mineralWeight) {
+    private float GetWeightFromAnalyzingTrail(@NonNull BlockBreakEvent ev, MiningSession s, float mineralWeight) {
         int unalignedMinedBlocksTimesDetected = 0;
         int iteratedBlockCoordSlots = 0;
         BlockVector block = ev.getBlock().getLocation().toVector().toBlockVector();

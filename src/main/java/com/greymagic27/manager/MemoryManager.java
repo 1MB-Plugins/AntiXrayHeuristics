@@ -466,7 +466,7 @@ public class MemoryManager {
 
     //GSON Serialization functions
 
-    private String JSONSerializeXrayersData(List<Xrayer> xrayers) //Serializes public class ArrayList to JSON String
+    private @NonNull String JSONSerializeXrayersData(List<Xrayer> xrayers) //Serializes public class ArrayList to JSON String
     {
         return new Gson().toJson(xrayers);
     }
