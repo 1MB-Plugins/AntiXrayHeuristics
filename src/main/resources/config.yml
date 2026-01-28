@@ -119,7 +119,7 @@ CommandsExecutedOnXrayerDetected:
 #Set the array of commands to empty like this: CommandsExecutedOnPlayerAbsolved: [] , if you wish to disable command
 #executions for the case.
 #Available placeholders for this array (Case sensitive): {PlayerName}
-CommandsExecutedOnPlayerAbsolved: []
+CommandsExecutedOnPlayerAbsolved: [ ]
 
 #If set to true, players with the permission AXH.XrayerWarning will be notified (with the message "AutoHandledPlayer"
 #in locale.yml) if an xrayer was found and dealt with.

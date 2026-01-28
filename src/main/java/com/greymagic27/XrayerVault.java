@@ -234,7 +234,7 @@ public class XrayerVault {
         CalculatePages();
         player.playSound(player.getLocation(), Sound.BLOCK_ENDER_CHEST_OPEN, 100, 1);
 
-        Inventory gui = Bukkit.createInventory(null, 54, LEGACY_SERIALIZER.deserialize(GUITitle).append (Component.text((page + 1) + "/" + pages)));
+        Inventory gui = Bukkit.createInventory(null, 54, LEGACY_SERIALIZER.deserialize(GUITitle).append(Component.text((page + 1) + "/" + pages)));
         viewers.put(player.getName(), new PlayerViewInfo(page)); //Register player as gui viewer on a certain page (used as player-page reference)
 
         if (mainClassAccess.getConfig().getBoolean("UseHeadsInGUI")) {

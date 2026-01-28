@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 public class MiningSession { //Contains heuristics tracked per player
 
     private final AntiXrayHeuristics mainClassAccess;
+    //Mined blocks trail tracking algorithm variables:
+    private final IntVector3[] minedBlocksTrailCoords = new IntVector3[10];
     public int minedNonOreBlocksStreak = 0; //Tracks how many non-ore blocks have been mined in streak.
     public int foundAtZeroSuspicionStreak = 0; //Tracks how many times this mining session has been found at suspicion level 0 during Runnable tasks.
     float suspicionDecreaseAmount = -4; //How much "suspicionLevel" to reduce for the this MiningSession every "mainRunnableFrequency" in AntiXrayHeuristics.java. This value results from a calculation based on speed.
@@ -23,8 +25,6 @@ public class MiningSession { //Contains heuristics tracked per player
     private int lastThirtyBlocksTime; //Last time we reached 30 mined blocks
     private int thirtyBlockCounter = 0; //When this value reaches 30, "thirtyBlockTimer" is compared to "lowestTimeThirtyBlocksMined". If lower, "thirtyBlockTimer" replaces "lowestTimeThirtyBlocksMined"
     private int explosivesPlacedStreak = 0; //Tracks how many explosive blocks have been placed. Used for suspicion increase inmunity above certain threshold.
-    //Mined blocks trail tracking algorithm variables:
-    private final IntVector3[] minedBlocksTrailCoords = new IntVector3[10];
     private int nextCoordsStorePos = 0; //Position where next mined block coordinates will be stored
     private int counterSinceLastBlockCoordsStore = 0; //Counts how many blocks we've mined since last mined block coordinates storing
 
