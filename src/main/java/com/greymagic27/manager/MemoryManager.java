@@ -37,7 +37,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -265,7 +266,7 @@ public class MemoryManager {
     }
 
     //Returns true if UUID was found in the database
-    private boolean SQLFindUUID(java.sql.@NonNull Connection connection, String n) throws SQLException {
+    private boolean SQLFindUUID(@NonNull Connection connection, String n) throws SQLException {
         PreparedStatement query = connection.prepareStatement("SELECT COUNT(1) FROM Xrayers WHERE UUID = ?");
         query.setString(1, n);
 

@@ -9,6 +9,7 @@ import com.greymagic27.util.MiningSession;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.jspecify.annotations.NonNull;
 
 public class EventPlayerChangedWorld implements Listener {
 

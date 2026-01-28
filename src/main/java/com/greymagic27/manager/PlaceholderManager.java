@@ -3,9 +3,8 @@ package com.greymagic27.manager;
 import java.util.List;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.jetbrains.annotations.Contract;
+import org.jspecify.annotations.NonNull;
 
-@SuppressWarnings("unused")
 public class PlaceholderManager {
 
     private static final LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.legacyAmpersand();
@@ -28,7 +27,6 @@ public class PlaceholderManager {
         return legacySerializer.serialize(component);
     }
 
-    @Contract("_ -> param1")
     public static @NonNull List<String> SubstituteColorCodePlaceholders(@NonNull List<String> toReplace) {
         toReplace.replaceAll(text -> {
             Component component = legacySerializer.deserialize(text);

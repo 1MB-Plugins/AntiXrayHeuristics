@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.jspecify.annotations.NonNull;
 
 public class CommandAXHAutoCompleter implements TabCompleter {
     @Override

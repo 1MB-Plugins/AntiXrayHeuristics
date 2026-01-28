@@ -3,6 +3,7 @@ package com.greymagic27.manager;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.greymagic27.callback.CallbackAddXrayerHeadToCache;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +17,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class HeadManager {
 
@@ -73,7 +75,7 @@ public class HeadManager {
             String skinURL = obj.getAsJsonObject("textures").getAsJsonObject("SKIN").get("url").getAsString();
             byte[] skinByte = ("{\"textures\":{\"SKIN\":{\"url\":\"" + skinURL + "\"}}}").getBytes();
             return new String(Base64.getEncoder().encode(skinByte));
-        } catch (Exception ignored) {
+        } catch (JsonSyntaxException ignored) {
         }
 
         return null;
@@ -95,7 +97,7 @@ public class HeadManager {
             while ((str = in.readLine()) != null) {
                 sb.append(str);
             }
-        } catch (Exception ignored) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 if (in != null) in.close();

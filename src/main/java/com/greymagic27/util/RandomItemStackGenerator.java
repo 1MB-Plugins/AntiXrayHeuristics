@@ -7,6 +7,7 @@ package com.greymagic27.util;
 import java.util.Random;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 public class RandomItemStackGenerator {
     public static @NonNull ItemStack GetRandomItemStack() {

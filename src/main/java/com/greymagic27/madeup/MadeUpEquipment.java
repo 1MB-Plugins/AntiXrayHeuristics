@@ -9,6 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings("DataFlowIssue")
 public class MadeUpEquipment implements EntityEquipment {

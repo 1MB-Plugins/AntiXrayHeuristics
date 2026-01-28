@@ -8,6 +8,7 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.jspecify.annotations.NonNull;
 
 public class CommandAXH implements CommandExecutor {
 

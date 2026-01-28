@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.jspecify.annotations.NonNull;
 
-@SuppressWarnings("unused")
 public class BlockWeightInfo implements ConfigurationSerializable {
     public final Material blockMaterial;
     public final int blockHeight;

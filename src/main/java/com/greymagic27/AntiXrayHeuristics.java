@@ -32,7 +32,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BlockVector;
 import org.jspecify.annotations.NonNull;
 
-@SuppressWarnings("unused")
 public final class AntiXrayHeuristics extends JavaPlugin implements Listener {
     private static AntiXrayHeuristics plugin;
     public final float maxSuspicionDecreaseProportion = -10.0F;
